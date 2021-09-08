@@ -13,7 +13,7 @@ function [tTrials,sTrials] = randomize_factors(factor,nRepetitions,table_filenam
 % table_filename : the name of the table to save
 %
 % OUTPUTS:
-% randomize_factors(factors,nRepetitions) : a table of randomized experimental factors will be saved to the working directory as 'table_filename.xls'
+% randomize_factors(factors,nRepetitions,'trials.xls') : a table of randomized experimental factors will be saved to the working directory as 'trials.xls'
 % [tTrials] = randomize_factors(factors,nRepetitions) : tTrials is the table of randomized experimental factors
 % [tTrials,sTrials] = randomize_factors(factors,nRepetitions) : sTrials are strings listing the table of randomized experimental factors
 %
@@ -35,7 +35,7 @@ if nargin < 2
 end
 
 if nargin < 3
-    table_filename = 'trials.xls';
+    table_filename = '';
 end
 
 if ~isfield(factor,'name')
@@ -83,7 +83,9 @@ factorNames{iF+2} = 'REPETITION'; %repetition
 
 tTrials = cell2table(table_data,'VariableNames',factorNames);
 
-writetable(tTrials,table_filename,'WriteMode','replacefile');
+if ~isempty(table_filename)
+    writetable(tTrials,table_filename,'WriteMode','replacefile');
+end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
