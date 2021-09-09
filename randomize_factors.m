@@ -30,6 +30,9 @@ function [tTrials,sTrials] = randomize_factors(factor,nRepetitions,table_filenam
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % inputs
+
+narginchk(1, 3);
+
 if nargin < 2
     nRepetitions = 1;
 end
@@ -75,7 +78,7 @@ for iT = 1:nTrials
 end
 
 % pull factor names for column names
-factorNames{1} = 'TRIAL NUMBER';
+factorNames{1} = 'TRIAL_NUMBER';
 for iF = 1:length(factor) 
     factorNames{iF+1} = factor(iF).name;
 end
@@ -90,6 +93,7 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % sTrials : output trials as strings
+if nargout > 1
 sTrials = cell(nTrials,1);
 for iT = 1:nTrials
     trialStrings_row = '';
@@ -98,6 +102,7 @@ for iT = 1:nTrials
     end
     trialStrings_row = ['Trial Number: ' num2str(iT) ', ' trialStrings_row, 'Repetition: ' num2str(trials(iT,iF+1))];
     sTrials{iT} = trialStrings_row;
+end
 end
 
 end
