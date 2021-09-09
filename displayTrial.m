@@ -20,11 +20,11 @@ nFactors = length(col_names);
 
 % find length of character names
 for j = 1:nFactors
-    factorNameLength(j) = length(col_names{1});
+    factorNameLength(j) = length(col_names{j});
     longestConditionNameLength = length(T{1,j+1});
     for k = 2:height(T)
-        if length(T{k,j+1}) > longestConditionNameLength
-            longestConditionNameLength = length(T{k,j+1});
+        if length(char(T{k,j+1})) > longestConditionNameLength
+            longestConditionNameLength = length(char(T{k,j+1}));
         end
     end
     if factorNameLength > longestConditionNameLength
@@ -40,10 +40,10 @@ for j = 1:nFactors
     
     factorString = upper([col_names{j} ':']); 
     
-    if length(factorString) < 10 % default number of characters to display
+    if conditionLength(j) <= 10 % default number of characters to display
         nCharacters{j} = 10;
     else % use a multiple of 5 for number of characters
-        nCharacters{j} = 5*idivide(length(factorString),int16(5),'ceil');
+        nCharacters{j} = 5*idivide(conditionLength(j)+1,int16(5),'ceil');
     end
     formatString = ['%' num2str(nCharacters{j}) 's'];
 
